@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心底的喜欢</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fbe4ee, #f6c9df);
+            font-family: "Microsoft YaHei", sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            background: #ffffffdd;
+            backdrop-filter: blur(10px);
+            padding: 50px 36px;
+            border-radius: 18px;
+            box-shadow: 0 6px 24px rgba(216, 80, 130, 0.18);
+            text-align: center;
+            max-width: 480px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 34px;
+            color: #d85a8a;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        .text-content {
+            font-size: 19px;
+            color: #7a4a66;
+            line-height: 2;
+            margin-bottom: 26px;
+        }
+
+        .star {
+            color: #ff6fa0;
+            font-size: 48px;
+            animation: twinkle 2.2s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.5; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1.05); }
+        }
+
+        .line {
+            width: 60%;
+            height: 1px;
+            background: #f2a9c7;
+            margin: 24px auto;
+        }
+
+        .desc {
+            font-size: 16px;
+            color: #a55d82;
+        }
+
+        .name {
+            margin-top: 12px;
+            font-size: 20px;
+            color: #d85a8a;
+            letter-spacing: 4px;
+        }
+
+        /* 飘落元素：粉色星星、淡蓝实心爱心，都在最上层 */
+        .fall-item {
+            position: fixed;
+            top: -40px;
+            left: 0;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear infinite;
+            z-index: 9999;
+        }
+        .fall-star {
+            color: #ff6fa0;
+            text-shadow: 0 0 8px rgba(255, 111, 160, 0.8),
+                         0 0 16px rgba(255, 111, 160, 0.4);
+        }
+        .fall-heart {
+            color: #94bfff;
+            text-shadow: 0 0 8px rgba(148, 191, 255, 0.7),
+                         0 0 14px rgba(148, 191, 255, 0.35);
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>心底的喜欢</h1>
+        <div class="star">✦</div>
+        <div class="text-content">
+            有些心意，只适合藏在心底<br>
+            安静地望着，不去打扰
+        </div>
+        <div class="name">皮妤婷</div>
+        <div class="line"></div>
+        <div class="desc">
+            不必让谁知道，这份喜欢，只属于我自己
+        </div>
+    </div>
+
+    <script>
+        function createFallItem() {
+            const item = document.createElement("div");
+            item.classList.add("fall-item");
+            // 70%概率粉色星星，30%概率淡蓝实心爱心
+            const isHeart = Math.random() < 0.3;
+            if(isHeart){
+                item.classList.add("fall-heart");
+                item.innerText = "♥";
+            }else{
+                item.classList.add("fall-star");
+                item.innerText = "✦";
+            }
+            item.style.left = Math.random() * 100 + "vw";
+            item.style.fontSize = (12 + Math.random() * 16) + "px";
+            item.style.animationDuration = (12 + Math.random() * 10) + "s";
+            item.style.animationDelay = Math.random() * 2 + "s";
+            document.body.appendChild(item);
+
+            setTimeout(() => {
+                item.remove();
+            }, 22000);
+        }
+
+        for (let i = 0; i < 10; i++) {
+            setTimeout(createFallItem, i * 800);
+        }
+
+        setInterval(createFallItem, 1200);
+    </script>
+</body>
+</html>
